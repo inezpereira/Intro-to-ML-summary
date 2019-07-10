@@ -1,0 +1,59 @@
+\section*{Regression}
+\subsection*{Gaussian/Normal Distribution}
+%$\sigma =$ standard deviation, $\sigma^2 =$ var., $\mu =$ mean:\\
+$f(x) = \frac{1}{\sqrt{2\pi\sigma^2}} exp(-\frac{(x-\mu)^2}{2\sigma^2})$\\
+Standard Gaussian: CDF: $\Phi(x) = \int_{-\infty}^{x} \phi(t) \partial t$;\\ %CDF: cumulative distribution function; PDF: standard normal probability density function, $\mu = 0$, $\sigma = 1$
+%PDF: $\phi(x) = \frac{1}{\sqrt{2\pi}} e^{-(1/2)x^2}$; 
+$\int \phi(x) \partial x = \Phi(x) + c$;
+$\int x \phi(x) = -\phi(x) + c$; $\int x^2 \phi(x) \partial x = \Phi(x) -x \phi(x) + c$
+
+
+\subsection*{Multivariate Gaussian}
+%$\sigma =$ covariance matrix, $\mu$ = mean\\
+$f(x) = \frac{1}{2\pi \sqrt{|\Sigma|}} e^{- \frac{1}{2} (x-\mu)^T \Sigma^{-1} (x-\mu)}$
+
+\subsection*{Convex / Jensen's inequality}
+$\text{g(x) is convex} \Leftrightarrow x_1,x_2 \in \mathbb{R}, \lambda \in [0,1]: g''(x) > 0$\\
+$g(\lambda x_1 + (1-\lambda) x_2) \leq \lambda g(x_1) + (1-\lambda) g(x_2)$
+$\varphi(\operatorname{E}[X]) \leq  \operatorname{E}[\varphi(X)]$
+
+\subsection*{Gradient Descent (requires all data)}
+1. Start arbitrary $w_o \in \mathbb{R}^d$\\
+2. For $i$ do $w_{t+1} = w_t - \eta_t \nabla \hat{R}(w_t)$
+
+\subsection*{Generalization Error = true $R$-empirical $\hat{R}$}
+Assumption: data set generated iid: $R(w) =$\\ 
+$\int P(x,y) (y-w^Tx)^2 \partial x \partial y = \mathbb{E}_{x,y}[(y-w^Tx)^2]$\\
+$\hat{R}_D(w) = \frac{1}{|D|}\sum_{(x,y)\in D} (y-w^Tx)^2$
+
+\subsection*{Linear Regression}
+Error: $\hat{R}(w) = \sum_{i=1}^n (y_i - w^Tx_i)^2 = ||Xw-y||^2_2$\\
+$w^* = \underset{w}{\operatorname{argmin}} \sum_{i=1}^n (y_i - w^Tx_i)^2$\\
+Closed form: $w^*=(X^T X)^{-1} X^T y$\\
+$\nabla_w \hat{R}(w) = -2 \sum_{i=1}^n (y_i-w^T x_i) \cdot x_i = 2X^T (Xw-y)$
+
+\subsection*{Ridge regression (Vs. Lasso (L1 norm))}
+Regularization: $\underset{w}{\operatorname{min}} \sum \limits_{i=1}^n (y_i - w^Tx_i)^2 + \lambda ||w||_2^2$\\
+Closed form solution: $w^*=(X^T X + \lambda I)^{-1} X^T y$\\
+$(X^T X + \lambda I)$ always invertible even if n<d.\\
+Gradient: $\nabla_w \hat{R}(w) = -2 \sum \limits_{i=1}^n (y_i-w^T x_i) \cdot x_i + 2 \lambda w$
+
+%\subsection*{L1-regularized regression (the Lasso)}
+%Regularization: $\underset{w}{\operatorname{min}} \sum \limits_{i=1}^n (y_i - w^Tx_i)^2 + \lambda ||w||_1$\\
+%Encourages coefficients to be exactly 0.
+
+\subsection*{Standardization}
+Goal: each feature: $\mu = 0$, unit $\sigma^2$: $\tilde{x}_{i,j} = \frac{(x_{i,j}-\hat{\mu}_j)}{\hat{\sigma}_j}$\\
+$\hat{\mu}_j = \frac{1}{n}\sum_{i=1}^n x_{i,j}$, $\hat{\sigma}_j^2 = \frac{1}{n}\sum_{i=1}^n {(x_{i,j}-\hat{\mu}_j)}^2$ 
+
+
+
+
+%\subsection*{Regularization}
+%The error term $L$ and the regularization $C$ with regularization parameter $\lambda$: $\min \limits_w L(w) + \lambda C(w)$\\
+%L1-regularization for number of features \\
+%L2-regularization for the length of $w$
+
+%my idea
+%\subsection*{Regularization}
+%A lot of supervised learning problems can be written in this way: $\lambda$: $\min \limits_w \hat{R}(w) + \lambda C(w)$\\

@@ -1,0 +1,18 @@
+\section*{Multi-class problems}
+\subsection*{OVA c (Vs. OVO c(c-1)/2 )}
+Each classifier attaches confidence $f^{(i)}(x)=w^{(i)T}x$. Predict: $\hat{y}=\underset{i\in\{1,...,c\}}{\operatorname{argmax}}(w^{(i)T}x)$
+
+%\subsection*{One-vs-all}
+%Train c(c-1)/2 binary classifiers then apply voting scheme
+
+\subsection*{Multi-class Hinge Loss}
+We want: $w^{(y)T}x > \underset{i \ne y}{\operatorname{max}} w^{(i)T}x+1$ *\\
+$l_{MC-H}(w^{(1:c)};x,y) =\\
+\text{max } (0,1+\underset{j\in\{1,...,y-1,y+1,...,c\}}{\operatorname{max}}w^{(j)T} x - w^{(y)T} x)$\\
+
+$\nabla_{w^{(j)}} l_{MC-H} = \begin{cases}
+    0 \text{ , if $* or j $$\not\in\{y, \hat{y}\}$}\\
+	    -x \text{ , if $\neg* and j=y$}\\
+	        x \text{ , if $\neg* and j=\hat{y}$}
+\end{cases}$
+
